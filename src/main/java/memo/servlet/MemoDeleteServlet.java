@@ -23,9 +23,7 @@ public class MemoDeleteServlet extends HttpServlet {
 		//1. 사용자가 입력한 값 받아오기
 		String idx = req.getParameter("idx");
 		if(idx==null||idx.trim().isEmpty()) {
-			out.println("<script type=\"text/javascript\">alert('잘못된 id값 입니다');");
-			out.println("location.href='MemoList'");
-			out.println("</script>");
+			res.sendRedirect("MemoList");
 		}
 		MemoDAO dao=new MemoDAO();
 		try {

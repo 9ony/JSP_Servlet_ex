@@ -34,7 +34,7 @@
 		<td><b><%=memo.getIdx()%></b></td>
 		<td><b><%=memo.getMsg()%><span class='mdate'>[ <%=memo.getWdate()%> ]</span></b></td>
 		<td><b><%=memo.getName()%></b></td>
-		<td><b><a href="MemoUpdate?idx=<%=memo.getIdx()%>">수정</a>|<a href="MemoDelete?idx=<%=memo.getIdx()%>">삭제</a></b></td>
+		<td><b><a href="MemoEditForm?idx=<%=memo.getIdx()%>">수정</a>|<a href="MemoDelete?idx=<%=memo.getIdx()%>">삭제</a></b></td>
 	</tr>
 <%
 		}//for-------------

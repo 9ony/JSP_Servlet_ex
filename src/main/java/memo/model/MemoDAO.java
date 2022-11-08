@@ -56,9 +56,7 @@ public class MemoDAO {
 					.append("wdate from memo order by idx asc");
 			String sql=buf.toString();
 			ps=con.prepareStatement(sql);
-			System.out.println("ps: "+ps);
 			rs=ps.executeQuery();
-			System.out.println("rs: "+rs);
 			List<MemoVO> arr = makeList(rs);
 			return arr;
 		}finally {

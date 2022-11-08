@@ -28,12 +28,15 @@ public class MemoAddServlet extends HttpServlet {
 		//1. 사용자가 입력한 값 받아오기
 		String name = req.getParameter("name");
 		String msg = req.getParameter("msg");
+		//2.유효성검사
 		if(name==null||msg==null||name.trim().isEmpty()||msg.trim().isEmpty()) {
 			res.sendRedirect("memo/input.html");			
 		}
+		//메모객체생성
 		MemoVO vo=new MemoVO(0,name,msg,null);
-		;
+		
 		MemoDAO dao=new MemoDAO();
+		//dao를 통해 db에등록
 		try {
 			int n = dao.insertMemo(vo);
 			String str=(n>0)?"글등록성공":"글등록실패";
