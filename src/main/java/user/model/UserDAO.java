@@ -74,7 +74,58 @@ public class UserDAO {
 		}
 		return arr;
 	}//--------------------------------
-
+	public boolean idCheck(String userid) throws SQLException {
+		try {
+			con=DBUtil.getCon();
+			StringBuilder buf = new StringBuilder("select idx from member where userid=?");
+			String sql=buf.toString();
+			ps=con.prepareStatement(sql);
+			ps.setString(1, userid);
+			rs=ps.executeQuery();
+			 
+			boolean b=rs.next();
+			return !b;
+		}finally {
+			close();
+		}
+	}//------------------------
+	public UserVO loginCheck(String userid,String pwd) throws SQLException, NotUserException{
+		try {
+			con=DBUtil.getCon();
+			UserVO user = this.selectUserByUserid(userid);
+			if(user==null) {//아이디가 없는 경우 => 예외 발생
+				throw new NotUserException(userid+"란 아이디는 존재하지 않아요");
+			}
+			//비밀번호 일치여부를 체크
+			String dbPwd=user.getPwd();
+			if(!dbPwd.equals(pwd)) {
+				throw new NotUserException();
+//				throw new NotUserException("비밀번호가 일치하지 않아요");
+			}
+			return user;
+		}finally {
+			close();
+		}
+	}
+	
+	//userid=> unique제약조건
+	private UserVO selectUserByUserid(String userid) throws SQLException{
+		try {
+			con=DBUtil.getCon();
+			String sql="select * from member where userid=?";
+			ps=con.prepareStatement(sql);
+			ps.setString(1, userid);
+			rs=ps.executeQuery();
+			List<UserVO> arr=makeList(rs);
+			if(arr!=null && arr.size()==1) {
+				UserVO user=arr.get(0);
+				return user;
+			}else
+				return null;
+		}finally {
+			close();
+		}
+	}
 	public void close() {
 		try {
 			if(rs!=null) rs.close();

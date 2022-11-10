@@ -6,6 +6,11 @@
 <div class="container">
 	<h1>Signup</h1>
 	<form name="mf" action="joinEnd.jsp" method="post">
+	<!-- 날짜 이메일 유효성검사 연습 -->
+<!-- 		날짜 : <input type="text" name="birth"><br>
+		*날짜 형식에 맞게 입력하세여[yyyy-mm-dd or yyyy/mm/dd]<br>
+		이메일 : <input type="text" name="email"><br>
+		*날짜 형식에 맞게 입력하세여[아이디@도메인주소]<br> -->
 		<table border="1" style="width:90%;margin:auto;margin-top:2em">
 			<tr>
 				<td width="20%" class="m1"><b>이름</b></td>
@@ -18,7 +23,7 @@
 				<td width="20%" class="m1"><b>아이디</b></td>
 				<td width="80%" class="m2">
 				<input type="text" name="userid" id="userid" placeholder="User ID">
-				<button type="button">아이디 중복 체크</button>
+				<button type="button" onclick="open_idcheck()">아이디 중복 체크</button>
 				<br><span class='ck'>*아이디는 영문자, 숫자, _, !만 사용 가능해요</span>
 				</td>
 			</tr>

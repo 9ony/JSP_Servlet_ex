@@ -10,9 +10,10 @@
             <nav>
                 <ul>
                     <li><a href="<%=myctx%>/example/ex06.jsp">성적입력</a></li>
-                    <li><a href="#">Menu2</a></li>
-                    <li><a href="#">Menu3</a></li>
-                    <li><a href="#">Menu4</a></li>
+                    <li><a href="<%=myctx%>/login/sessionTest.jsp">Session</a></li>
+                    <li><a href="<%=myctx%>/login/cookieTest.jsp">Cookie</a></li>
+                    <li><a href="<%=myctx%>/login/myPage.jsp">MyPage</a></li>
+                    <li><a onClick="history.back()" >Test</a></li>
                 </ul>
             </nav>
 

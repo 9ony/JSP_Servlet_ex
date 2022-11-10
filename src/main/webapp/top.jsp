@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="user.model.*"%>
 <%
 	//Context명을 동적으로 알아낼수 있음 context==/MyWeb
 	//절대경로방식을 쓴다 top과 foot은 왜? 공통모듈이라서
 	//ex)     /MyWeb/memo/list.jsp
 	String myctx=request.getContextPath(); //myctx에 context경로 저장
+	UserVO loginUser=(UserVO)session.getAttribute("loginUser");
+	boolean isLogin=(loginUser!=null)?true:false;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +30,16 @@
            <ul>
             <li><a href="<%=myctx%>/index.jsp">Home</a></li>
             <li><a href="<%=myctx%>/member/join.jsp">Signup</a></li>
+            <%if(!isLogin){ %>
             <li><a href="<%=myctx%>/login/login.jsp">Signin</a></li>
+            <%} else{ %>
+            <li><a href="<%=myctx%>/login/logout.jsp">Logout</a></li>
+            <%} %>
+            <li><a href="<%=myctx%>/member/list.jsp">Users</a></li>
             <li><a href="<%=myctx%>/index.jsp">Board</a></li>
+            <%if(isLogin){ %>
+            <li><a href="#"><%=loginUser.getUserid()%>님 로그인중...</a></li>
+            <%} %>
            </ul>
         </nav>
         <div class="clear"></div>
