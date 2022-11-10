@@ -9,7 +9,7 @@
             <!-- 사이드 -->
             <nav>
                 <ul>
-                    <li><a href="<%=myctx%>/example/ex06.jsp">Menu1</a></li>
+                    <li><a href="<%=myctx%>/example/ex06.jsp">성적입력</a></li>
                     <li><a href="#">Menu2</a></li>
                     <li><a href="#">Menu3</a></li>
                     <li><a href="#">Menu4</a></li>

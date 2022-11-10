@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	static String url="jdbc:oracle:thin:@localhost:1521:XE";
-	static String user="scott", pwd="tiger";
+//	static String user="scott", pwd="tiger";
+	static String user="multi", pwd="tiger"; //<<예제 member테이블 계정
 	static {
 		try {
 		Class.forName("oracle.jdbc.driver.OracleDriver");

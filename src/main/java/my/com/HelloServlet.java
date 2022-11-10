@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  *(1) Web.xml
  *
- *(2)
+ *(2) @WebServlet어노테이션 사용하는 방법
  */
 
 public class HelloServlet extends HttpServlet{
