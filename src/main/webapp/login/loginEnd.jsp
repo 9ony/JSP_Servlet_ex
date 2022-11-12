@@ -6,6 +6,9 @@
 	//useBean액션을 이용해서 UserVO객체와 UserDAO객체를 생성해보자.
 	String userid=request.getParameter("userid");
 	String pwd=request.getParameter("pwd");
+	//아이디 저장한 값 받기
+	String saveId=request.getParameter("saveId");
+	System.out.println("saveId: "+saveId);
 	//2. 유효성 체크=>login.jsp
 	if(userid==null||pwd==null){
  		response.sendRedirect("login.jsp");
@@ -30,6 +33,20 @@
 				- Object getAttribute(String key)
 		*/
 		session.setAttribute("loginUser", loginUser);
+		//session은 서버쪽에 저장, cookie는 클라이언트쪽에 저장
+
+		//(1) saveId에 체크를 했다면 쿠키를 생성해서 사용자 아이디를 저장하고 유효시간을 설정하자(1주일)
+		Cookie ck=new Cookie("uid", userid);
+		if(saveId!=null){
+			ck.setMaxAge(60*60*24*7);	
+		}else{
+		//(2) saveId에 체크를 안했다면==>쿠키 삭제
+			ck.setMaxAge(0);
+		}
+		ck.setPath("/");
+		//response에 쿠키를 추가
+		response.addCookie(ck);
+		
 		response.sendRedirect("../index.jsp");
 	}
 

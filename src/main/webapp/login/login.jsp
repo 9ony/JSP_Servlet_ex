@@ -27,6 +27,24 @@
 		return true;
 	}
 </script>
+<%
+	/* 쿠키를 요청할땐 배열을 생성해서 요청함
+	uid인 키값의 쿠키가 있으면 uid에 value값을 넣어준다
+	키값은 getName() , value값은 getValue()*/
+	Cookie[] cks=request.getCookies();
+	String uid="";
+	boolean flag=false;
+	if(cks!=null){
+		for(Cookie ck:cks){
+			String key=ck.getName(); 
+			if(key.equals("uid")){
+				uid = ck.getValue();
+				flag=true;
+				break;
+			}
+		}
+	}
+%>
 <div class="SignUp">
 	<h1>Login</h1>
 	<div class="container">
@@ -39,7 +57,7 @@
 				<tr>
 					<td width="20%" class="m1"><b>아이디</b></td>
 					<td width="80%" class="m2">
-						<input type="text" name="userid" id="userid" placeholder="User ID">
+						<input type="text" name="userid" id="userid" value="<%=uid%>" placeholder="User ID">
 					</td>
 				</tr>
 				<tr>
@@ -51,7 +69,7 @@
 				<tr>
 					<td colspan="2" class="container">
 						<label for="saveId">
-							<input type="checkbox" name="saveId" id="saveId">아이디 저장
+							<input type="checkbox" name="saveId" id="saveId" <%=(flag)?"checked":"" %>>아이디 저장
 						</label>
 						<button id="btnlogin"> 로그인 </button>
 						<!-- default가 submit버튼 -->

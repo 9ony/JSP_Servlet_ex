@@ -15,18 +15,18 @@ public class UserVO {
 	private String post;
 	private String addr1;
 	private String addr2;
+	private String statusStr;
 	
 	private java.sql.Date indate;
 	private int mileage;
 	private int status;//회원상태정보(일반회원:0, 정지회원:-1, 탈퇴회원:-2)
 	
 	public UserVO() {
-		//super();
 		System.out.println("UserVO생성자()...");
 	}
 
 	public UserVO(int idx, String name, String userid, String pwd, String hp1, String hp2, String hp3, String post,
-			String addr1, String addr2, Date indate, int mileage, int status) {
+			String addr1, String addr2, Date indate, int mileage, int status ,String statusStr) {
 		super();
 		this.idx = idx;
 		this.name = name;
@@ -41,6 +41,7 @@ public class UserVO {
 		this.indate = indate;
 		this.mileage = mileage;
 		this.status = status;
+		this.statusStr = statusStr;
 	}
 	//----------setter/getter------
 	public int getIdx() {
@@ -147,6 +148,14 @@ public class UserVO {
 		this.status = status;
 	}
 	
+	public String getStatusStr() {
+		return statusStr;
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+
 	public String getAllHp() {
 		return hp1+"-"+hp2+"-"+hp3;
 	}

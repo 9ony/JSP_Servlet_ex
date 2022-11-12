@@ -43,6 +43,13 @@
 				<br>
 				<button onclick="history.back()">닫 기</button>
 			</div>
+			<!-- <div class="container m2" style="margin-top: 2em">
+				<form name="idf" action="idCheck.jsp" method="post">
+					<label for="userid">아이디</label> <input type="text" name="userid"
+						id="userid" placeholder="User ID" autofocus="autofocus">
+					<button type="button" onclick="id_check()">확 인</button>
+				</form>
+			</div> -->
 			<%
 		}
 	}

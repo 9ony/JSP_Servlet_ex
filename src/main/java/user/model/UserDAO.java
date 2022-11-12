@@ -42,7 +42,8 @@ public class UserDAO {
 	public List<UserVO> listUser() throws SQLException{
 		try {
 			con=DBUtil.getCon();
-			StringBuilder buf=new StringBuilder("select * from member order by idx desc");
+			StringBuilder buf=new StringBuilder("select member.*, decode(status,0,'활동회원',-1,'정지회원',-2,'탈퇴회원') statusStr ")
+										.append("from member order by idx desc");
 			String sql=buf.toString();
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
@@ -68,8 +69,9 @@ public class UserDAO {
 			java.sql.Date indate=rs.getDate("indate");
 			int mileage=rs.getInt("mileage");
 			int status=rs.getInt("status");
+			String statusStr=rs.getString("statusStr");
 			UserVO user
-			=new UserVO(idx,name,userid,pwd,hp1,hp2,hp3,post,addr1,addr2,indate,mileage,status);
+			=new UserVO(idx,name,userid,pwd,hp1,hp2,hp3,post,addr1,addr2,indate,mileage,status,statusStr);
 			arr.add(user);
 		}
 		return arr;
@@ -82,8 +84,9 @@ public class UserDAO {
 			ps=con.prepareStatement(sql);
 			ps.setString(1, userid);
 			rs=ps.executeQuery();
-			 
 			boolean b=rs.next();
+			//b가  true면 해당 아이디가 있다는 얘기=> false를 반환
+			//	   false면 해당 아이디가 없다는 얘기=>true반환
 			return !b;
 		}finally {
 			close();
@@ -99,20 +102,49 @@ public class UserDAO {
 			//비밀번호 일치여부를 체크
 			String dbPwd=user.getPwd();
 			if(!dbPwd.equals(pwd)) {
-				throw new NotUserException();
-//				throw new NotUserException("비밀번호가 일치하지 않아요");
+//				throw new NotUserException();
+				throw new NotUserException("비밀번호가 일치하지 않아요");
 			}
 			return user;
 		}finally {
 			close();
 		}
-	}
+	}//-------------------------
+	public UserVO selectUserByIdx(int idx) throws SQLException{
+	      try {
+	         con=DBUtil.getCon();
+	         //String sql="select member.*, decode(status,0,'활동회원',-1,'정지회원',-2,'탈퇴회원') statusStr from member where idx=?";
+	         String sql="select * from memberView where idx=?";
+	         ps=con.prepareStatement(sql);
+	         ps.setInt(1, idx);
+	         rs=ps.executeQuery();
+	         List<UserVO> arr= makeList(rs);
+	         if(arr==null||arr.size()==0) {
+	            return null;
+	         }
+	         UserVO user=arr.get(0);
+	         return user;
+	      }finally {
+	         close();
+	      }
+	   }
+	
+//	-- grant create view, create synonym to multi; >>system접속후 multi계정 뷰생성권한부여
+//
+//	--status값이 -1 보다 큰 회원들만 모아서 memberView를 생성하자
+//	create or replace view memberView
+//	as
+//	select member.*, decode(status,0,'활동회원',-1,'정지회원',-2,'탈퇴회원',9,'관리자') statusStr
+//	from member where status >-2;
+//
+//	select * from memberView;
 	
 	//userid=> unique제약조건
 	private UserVO selectUserByUserid(String userid) throws SQLException{
 		try {
 			con=DBUtil.getCon();
-			String sql="select * from member where userid=?";
+			//String sql="select member.*, decode(status,0,'활동회원',-1,'정지회원',-2,'탈퇴회원') statusStr from member where userid=?";
+			String sql="select * from memberView where userid=?";
 			ps=con.prepareStatement(sql);
 			ps.setString(1, userid);
 			rs=ps.executeQuery();
@@ -125,7 +157,34 @@ public class UserDAO {
 		}finally {
 			close();
 		}
+	}//-----------------------------------------
+	
+	public int updateUser(UserVO user) throws SQLException{
+		try {
+			con=DBUtil.getCon();
+			StringBuilder buf = new StringBuilder("update member set name=?,userid=?,pwd=?,hp1=?,hp2=?,hp3=?,")
+					.append("post=?,addr1=?,addr2=?,status=? where idx=?");
+			String sql=buf.toString();
+			ps=con.prepareStatement(sql);
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getUserid());
+			ps.setString(3, user.getPwd());
+			ps.setString(4, user.getHp1());
+			ps.setString(5, user.getHp2() );
+			ps.setString(6, user.getHp3());
+			ps.setString(7, user.getPost());
+			ps.setString(8, user.getAddr1());
+			ps.setString(9, user.getAddr2());
+			ps.setInt(10, user.getStatus());
+			ps.setInt(11, user.getIdx());
+			
+			return ps.executeUpdate();
+		}finally {
+			close();
+		}
 	}
+	
+	
 	public void close() {
 		try {
 			if(rs!=null) rs.close();
