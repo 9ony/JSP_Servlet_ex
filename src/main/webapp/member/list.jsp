@@ -3,7 +3,7 @@
 <%@ include file="/login/adminCheckModule.jsp" %>
 <%-- <jsp:useBean id="user" class="user.model.UserVO" scope="page"/> --%>
 <jsp:useBean id="userDao" class="user.model.UserDAO" scope="session"/>
-
+<script type="text/javascript" src="../js/userCheck.js"></script>
 <jsp:include page="/top.jsp"/>
 <div class="container">
 	<h1>회원 목록 페이지 [Admin Page]</h1>
@@ -37,7 +37,7 @@
 					<td class="state<%=vo.getStatus()%>">
 					<%=(vo.getStatus()>=0)?"활동회원":(vo.getStatus()==-1)?"정지회원":"탈퇴회원" %>
 					</td>
-					<td><a href="modify.jsp?idx=<%=vo.getIdx()%>">수정</a><a>삭제</a></td>
+					<td><a href="modify.jsp?idx=<%=vo.getIdx()%>">수정</a>|<a onclick="open_delcheck(<%=vo.getIdx()%>)">삭제</a></td>
 				</tr>
 				<% 
 				}//for-----

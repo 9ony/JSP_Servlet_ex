@@ -2,9 +2,36 @@
  유효성 검사를 위한 자바스크립트 함수 모음
   */
 let win=null;
+//아이디 중복검사 팝업
 function open_idcheck(){
 	win=window.open("idcheck.jsp","idCheck","width=400,height=400,left=200,top=200");
 }
+//회원탈퇴 팝업
+function open_delcheck(){
+	if(arguments!=undefined){
+		var i = arguments[0];
+		console.log(i);
+		win=window.open("../member/deleteAccount.jsp?idx="+i,"deleteAccount","width=400,height=400,left=200,top=200");
+	}else{
+		win=window.open("../member/deleteAccount.jsp","deleteAccount","width=400,height=400,left=200,top=200");
+	}
+}
+function del_check(pwd,idx){
+	console.log(pwd);
+	console.log(typeof(pwd));
+	console.log(idx);
+	console.log(typeof(idx));
+	if(pwd==delf.pwd.value){
+		location.href="deleteAccountEnd.jsp?idx="+idx;
+		return;
+	}else{
+		alert("비밀번호가 일치하지 않아요");
+		delf.pwd.focus();
+		return;
+	}
+}
+
+
 function setId(uid){
 	//alert(uid);
 	//uid값을 부모창(window)의 userid의 value값에 전달하자

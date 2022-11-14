@@ -182,6 +182,19 @@ public class UserDAO {
 		}finally {
 			close();
 		}
+	}//-------------------------------
+	public int deleteUser(int idx) throws SQLException{
+		try {
+			con=DBUtil.getCon();
+			StringBuilder buf= new StringBuilder("delete member where idx=?");
+			String sql = buf.toString();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, idx);
+			int n = ps.executeUpdate();
+			return n;
+		}finally {
+			close();
+		}
 	}
 	
 	

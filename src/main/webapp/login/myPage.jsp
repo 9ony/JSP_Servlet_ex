@@ -3,6 +3,7 @@
 <!-- 로그인 체크모듈 포함------------------------------------ -->
 <%@ include file="/login/loginCheckModule.jsp" %>
 <!-- --------------------------------------------------- -->
+<script type="text/javascript" src="../js/userCheck.js"></script>
 
 <jsp:include page="/top.jsp" />
 <% 
@@ -21,7 +22,8 @@
 		<li>회원상태:<b><%=user.getStatusStr()%></b> </li>
 		<li>주소: <b><%=user.getAllAddr()%></b></li>
 	</ul>
-	<button onclick="location.href='../member/modify.jsp'">회원정보 수정|탈퇴</button>
+	<button onclick="location.href='../member/modify.jsp'">회원정보 수정</button>
+	<button onclick="open_delcheck(<%=user.getIdx()%>)">회원탈퇴</button>
 </div>
 
 <jsp:include page="/foot.jsp" />

@@ -24,6 +24,7 @@
 	UserVO loginUser = userDao.loginCheck(userid, pwd);
 	if(loginUser!=null){
 		//out.println("<h1>로그인성공</h1>");
+		
 		//회원인증을 받았다면 인증받은 회원정보를 session에 저장한다
 		//session은 서버단에 저장하고 cookie는 클라이언트단에 저장하는데
 		//cookie는 사용자정보 노출우려가 있기때문에 회원정보는 cookie에 저장하지않는다

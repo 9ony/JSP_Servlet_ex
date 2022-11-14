@@ -13,7 +13,7 @@
 	}
 </style>
 <script type="text/javascript">
-	let login_check()=function(){
+	let login_check=function(){
 		if(!loginF.userid.value){
 			alert('아이디를 입력하세요');
 			loginF.userid.focus();
